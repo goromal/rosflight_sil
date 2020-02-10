@@ -8,15 +8,14 @@
 
 #include <ros/ros.h>
 #include <rosflight_msgs/RCRaw.h>
-#include "rosflight_msgs/ROSflightSimState.h"
+#include "rosflight_sil/ROSflightSimState.h"
 
 #include <rosflight_firmware/udp_board.h>
 
 #include <eigen3/Eigen/Eigen>
 #include <random>
 
-#include "utils/quat.h"
-#include "utils/support.h"
+#include "geometry-utils-lib/quat.h"
 
 using namespace Eigen;
 
@@ -99,7 +98,7 @@ public:
   void board_reset(bool bootloader) override;
 
   // truth setting
-  void set_truth(const rosflight_msgs::ROSflightSimState& msg);
+  void set_truth(const rosflight_sil::ROSflightSimState& msg);
 
   // clock
   uint32_t clock_millis() override;

@@ -14,7 +14,7 @@ SIL_Board::SIL_Board() :
 
 void SIL_Board::init_board(void) {}
 
-void SIL_Board::set_truth(const rosflight_msgs::ROSflightSimState &msg)
+void SIL_Board::set_truth(const rosflight_sil::ROSflightSimState &msg)
 {
   cur_NED_(0) = msg.pos.x;
   cur_NED_(1) = msg.pos.y;
@@ -45,7 +45,7 @@ void SIL_Board::ros_setup(ros::NodeHandle* nh, ros::NodeHandle* nh_private, std:
 
   std::string bind_host = nh_private_->param<std::string>("bind_host", "localhost");
   int bind_port = nh_private_->param<int>("bind_port", 14525);
-  std::string remote_host = nh_private_->param<std::string>("remote_host", "localhost");
+  std::string remote_host = nh_private_->param<std::string>("remote_host", bind_host);
   int remote_port = nh_private_->param<int>("remote_port", 14520);
 
   set_ports(bind_host, bind_port, remote_host, remote_port);

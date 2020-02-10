@@ -7,7 +7,7 @@
   <license>TODO</license>
 
   <buildtool_depend>catkin</buildtool_depend>
-  <depend>roscpp</depend> 
+  <depend>roscpp</depend>
   <depend>rospy</depend>
   <depend>eigen3</depend>
   <depend>geometry_msgs</depend>
@@ -15,5 +15,8 @@
   <depend>rosflight_sim</depend>
   <depend>rosflight_firmware</depend>
   <depend>rosflight_msgs</depend>
+  <depend>aerowake_utils</depend>
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
 
 </package>

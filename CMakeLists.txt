@@ -16,6 +16,20 @@ find_package(catkin REQUIRED COMPONENTS
   rosflight_sim
   rosflight_firmware
   rosflight_msgs
+  aerowake_utils
+  message_generation
+)
+
+add_message_files(
+  DIRECTORY msg
+  FILES
+  ROSflightSimState.msg
+)
+
+generate_messages(
+  DEPENDENCIES
+  geometry_msgs
+  std_msgs
 )
 
 find_package(Eigen3 REQUIRED)
@@ -23,7 +37,8 @@ include_directories(${EIGEN3_INCLUDE_DIR})
 
 catkin_package(
   INCLUDE_DIRS include
-  CATKIN_DEPENDS roscpp rospy geometry_msgs nav_msgs rosflight_sim rosflight_firmware rosflight_msgs
+  CATKIN_DEPENDS roscpp rospy aerowake_utils geometry_msgs nav_msgs
+    rosflight_sim rosflight_firmware rosflight_msgs
   DEPENDS EIGEN3
 )
 
@@ -37,5 +52,11 @@ add_executable(rosflight_sil_node
   src/sil_board.cpp
   src/rosflight_sil_node.cpp
 )
-target_link_libraries(rosflight_sil_node aerowake_utils ${catkin_LIBRARIES})
-
+add_dependencies(rosflight_sil_node
+  ${catkin_EXPORTED_TARGETS}
+)
+target_link_libraries(rosflight_sil_node
+  aerowake-utils-lib
+  rosflight_firmware
+  ${catkin_LIBRARIES}
+)
