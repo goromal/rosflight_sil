@@ -210,6 +210,9 @@ bool SIL_Board::imu_read(float accel[3], float* temperature, float gyro[3], uint
   accel[1] = static_cast<float>(y_acc(1));
   accel[2] = static_cast<float>(y_acc(2));
 
+  if(isnan(accel[0]))
+      std::cout << "NAN WARNING IN SIL_BOARD IMU SENSOR" << std::endl;
+
   (*temperature) = 27.0;
 
   // GYROS MEASUREMENT
@@ -282,7 +285,7 @@ void SIL_Board::baro_read(float *pressure, float *temperature)
   double alt = -cur_NED_(2) + ground_altitude_;
 
   // Convert to the true pressure reading
-  double y_baro = 101325.0f*(float)pow((1-2.25694e-5 * alt), 5.2553);
+  double y_baro = 101325.0f*(float)pow((1.0 - 2.25694e-5 * alt), 5.2553);
 
   // Add noise
   y_baro += baro_stdev_*normal_distribution_(random_generator_);
@@ -292,6 +295,8 @@ void SIL_Board::baro_read(float *pressure, float *temperature)
 
   // Add random walk
   y_baro += baro_bias_;
+
+//  std::cout << y_baro << std::endl;
 
   (*pressure) = (float)y_baro;
   (*temperature) = 27.0f;
